@@ -1,12 +1,12 @@
 
-from pydantic import BaseModel, EmailStr, AnyUrl
+from pydantic import BaseModel, EmailStr, AnyUrl, Field
 from typing import List, Dict, Optional
 
 class Patient(BaseModel):
-    name: str
+    name: str = Field(max_length=50, description="Name of the patient must be between 1 and 50 characters")
     email: EmailStr
     website: AnyUrl
-    age: int
+    age: int = Field(..., ge=0, le=120, description="Age of the patient must be between 0 and 120")
     wieght: float
     married: bool
     alergies: Optional[List[str]] = None
