@@ -1,0 +1,2 @@
+# pydandic
+Learning Pydantic
