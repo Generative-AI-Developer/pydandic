@@ -13,6 +13,7 @@ class Patient(BaseModel):
     @field_validator("email")
     @classmethod
     def validate_email(cls, value):
+        
 
         valid_domains = ["abl.com", "mcb.com", "hbl.com"]
         domain_name = value.split('@')[-1]
@@ -20,6 +21,11 @@ class Patient(BaseModel):
         if domain_name not in valid_domains:
             raise ValueError("Not a valid Domain Name")
         return value
+    @field_validator("name")
+    @classmethod
+    def transform_name(cls, value):
+    
+        return value.upper()
 
 def insert_patient_data(patient:Patient):
     print(patient.name)
