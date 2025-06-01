@@ -1,9 +1,9 @@
 
 from pydantic import BaseModel, EmailStr, AnyUrl, Field
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Annotated
 
 class Patient(BaseModel):
-    name: str = Field(max_length=50, description="Name of the patient must be between 1 and 50 characters")
+    name: Annotated[str, Field(min_length=3, max_length=50,title="Name of Patient", description="Name of the patient must be between 3 and 50 characters")]
     email: EmailStr
     website: AnyUrl
     age: int = Field(..., ge=0, le=120, description="Age of the patient must be between 0 and 120")
@@ -32,6 +32,9 @@ def update_patient_data(patient:Patient):
     print(patient.married)
     print(patient.alergies)
     print(patient.contact_details)
+
+    print("Updated successfully.")
+
 
 
 patient_info = {"name": "Asif","age": 30,"email":"abc@gmail.com", "website":"https://www.google.com", "wieght": 70.5, "married": True,
